@@ -101,12 +101,6 @@ public class DaosService {
         }
         return tokenList;
     }
-    
-    public void eliminateOldTokens()
-    {
-    	this.tokenDao.de
-    }
-
 
     public void createCourts(int initial, int size) {
         for (int id = 0; id < size; id++) {

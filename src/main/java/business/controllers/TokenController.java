@@ -1,5 +1,9 @@
 package business.controllers;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,25 +18,41 @@ import data.entities.User;
 @Transactional
 public class TokenController {
 
-    private TokenDao tokenDao;
+	private TokenDao tokenDao;
 
-    private UserDao userDao;
+	private UserDao userDao;
 
-    @Autowired
-    public void setTokenDao(TokenDao tokenDao) {
-        this.tokenDao = tokenDao;
-    }
+	@Autowired
+	public void setTokenDao(TokenDao tokenDao) {
+		this.tokenDao = tokenDao;
+	}
 
-    @Autowired
-    public void setUserDao(UserDao userDao) {
-        this.userDao = userDao;
-    }
+	@Autowired
+	public void setUserDao(UserDao userDao) {
+		this.userDao = userDao;
+	}
 
-    public String login(String username) {
-        User user = userDao.findByUsernameOrEmail(username);
-        assert user != null;
-        Token token = new Token(user);
-        tokenDao.save(token);
-        return token.getValue();
-    }
+	public String login(String username) {
+		User user = userDao.findByUsernameOrEmail(username);
+		assert user != null;
+		Token token = new Token(user);
+		tokenDao.save(token);
+		return token.getValue();
+	}
+	
+	public void eliminateOldTokens()	{
+	List<Token> tokens = tokenDao.findAll();
+	Date now = Calendar.getInstance().getTime();
+	for (Token t: tokens)
+	{
+		if (now.getTime() - t.getCreation().getTime()/(60*60*1000) > 1)
+		{
+			tokenDao.delete(t);
+		}
+	}
+	tokenDao.flush();
+	}
+		
+	
+	
 }

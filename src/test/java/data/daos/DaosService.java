@@ -88,6 +88,25 @@ public class DaosService {
         }
         return tokenList;
     }
+    
+    public List<Token> createOldTokens(User[] users) {
+        List<Token> tokenList = new ArrayList<>();
+        Token token;
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, -1);
+        for (User user : users) {
+            token = new Token(user, cal.getTime());
+            tokenDao.save(token);
+            tokenList.add(token);
+        }
+        return tokenList;
+    }
+    
+    public void eliminateOldTokens()
+    {
+    	this.tokenDao.de
+    }
+
 
     public void createCourts(int initial, int size) {
         for (int id = 0; id < size; id++) {

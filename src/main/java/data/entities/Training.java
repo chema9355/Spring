@@ -111,7 +111,7 @@ public class Training {
 	        String time = new SimpleDateFormat("HH:00 dd-MMM-yyyy ").format(date.getTime());
 	        return "Training [id=" + id + ", courtId=" + court.getId() + ", date=" + time + ", Trainer=" + trainer.getUsername() + "Players=" + players.toString()+ "]";
 	    }
-	
+
 	
 	
 

@@ -19,10 +19,6 @@ import data.entities.Training;
 import data.entities.User;
 
 public class TrainingController {
-	
-	private static final int START_TIME = 9;
-
-    private static final int END_TIME = 23;
     
     private static final int MAX_SIZE = 4;
 
@@ -84,10 +80,8 @@ public class TrainingController {
         return true;
     }
     
-    public boolean deleteTraining(String trainerName, int courtId){
-    	Court court = courtDao.findOne(courtId);
-    	User trainer = userDao.findByUsernameOrEmail(trainerName);
-    	Training training = trainingDao.findByTrainerAndCourt(trainer, court);
+    public boolean deleteTraining(int trainingId){
+    	Training training = trainingDao.findOne(trainingId);
     	if (training == null)
     	{
     		return false;
@@ -128,9 +122,6 @@ public class TrainingController {
 	    return true;
     }
 
-    public boolean rightTime(int hour) {
-        return hour >= START_TIME && hour <= END_TIME;
-    }
 
 }
 

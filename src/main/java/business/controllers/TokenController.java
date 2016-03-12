@@ -39,20 +39,4 @@ public class TokenController {
 		tokenDao.save(token);
 		return token.getValue();
 	}
-	
-	public void eliminateOldTokens()	{
-	List<Token> tokens = tokenDao.findAll();
-	Date now = Calendar.getInstance().getTime();
-	for (Token t: tokens)
-	{
-		if (now.getTime() - t.getCreation().getTime()/(60*60*1000) > 1)
-		{
-			tokenDao.delete(t);
-		}
-	}
-	tokenDao.flush();
-	}
-		
-	
-	
 }

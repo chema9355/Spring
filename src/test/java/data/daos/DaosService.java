@@ -52,6 +52,9 @@ public class DaosService {
         for (Token token : this.createTokens(users)) {
             map.put("t" + token.getUser().getUsername(), token);
         }
+        for (Token token : this.createOldTokens(users)) {
+            map.put("ot" + token.getUser().getUsername(), token);
+        }      
         for (User user : this.createPlayers(4, 4)) {
             map.put(user.getUsername(), user);
         }

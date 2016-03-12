@@ -3,6 +3,9 @@ package data.daos;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,5 +34,13 @@ public class TokenDaoITest {
         assertEquals(token, tokenDao.findByUser(token.getUser()));
         assertNull(tokenDao.findByUser(user));
     }
+    
+    @Test
+    public void testDeleteOldToken() {
+        List<Token> tokens = new ArrayList<Token>();
+        tokens = tokenDao.findAll();
+        assertEquals(4, tokens.size());
+    }
+    
 
 }

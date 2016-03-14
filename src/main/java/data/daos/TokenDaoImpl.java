@@ -18,13 +18,10 @@ public class TokenDaoImpl implements TokenExtended {
 	@Override
 	public void deleteOldTokens() {
 		List<Token> tokens = tokenDao.findAll();
-		Date now = Calendar.getInstance().getTime();
-		for (Token t: tokens)
-		{
-			if (now.getTime() - t.getCreation().getTime()/(60*60*1000) > 1)
-			{
-				tokenDao.delete(t);
-			}
+		for (Token token : tokens)	{
+			if (token.isOldToken())	{
+				tokenDao.delete(token);
+			}			
 		}
 		tokenDao.flush();
 	}

@@ -23,24 +23,33 @@ public class TokenDaoITest {
 
     @Autowired
     private TokenDao tokenDao;
-
+    
     @Autowired
     private DaosService daosService;
 
     @Test
     public void testFindByUser() {
         Token token = (Token) daosService.getMap().get("tu1");
-        User user = (User) daosService.getMap().get("u4");
+        User user = (User) daosService.getMap().get("u9");
         assertEquals(token, tokenDao.findByUser(token.getUser()));
         assertNull(tokenDao.findByUser(user));
     }
     
     @Test
-    public void testDeleteOldToken() {
+    public void testFindByValue() {
+        Token token = (Token) daosService.getMap().get("tu1");
+        Token token1 = tokenDao.findByValue(token.getValue());
+        assertEquals(token, token1);
+    }
+    
+    @Test
+    public void testDeleteOldTokens() {
         List<Token> tokens = new ArrayList<Token>();
+        tokens = tokenDao.findAll();
+        assertEquals(8, tokens.size());
+        tokenDao.deleteOldTokens();
         tokens = tokenDao.findAll();
         assertEquals(4, tokens.size());
     }
     
-
 }

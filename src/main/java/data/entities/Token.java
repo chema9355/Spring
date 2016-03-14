@@ -46,6 +46,16 @@ public class Token {
         this.creation = creation;
     }
 
+    public boolean isOldToken()
+    { 
+    	Date now = Calendar.getInstance().getTime();
+    	if ((now.getTime() - this.getCreation().getTime())/(60*60*1000) > 1)
+		{
+			return true;
+		}
+    	return false;
+    }
+    
     public int getId() {
         return id;
     }

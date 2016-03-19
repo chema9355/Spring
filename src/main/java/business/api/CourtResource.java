@@ -41,7 +41,7 @@ public class CourtResource {
 
     @RequestMapping(value = Uris.ID + Uris.ACTIVE, method = RequestMethod.DELETE)
     public void changeCourtActivationFalse(@PathVariable int id) throws NotFoundCourtIdException {
-        if (!courtController.changeCourtActivation(id, false)) {
+    	if (!courtController.changeCourtActivation(id, false)) {
             throw new NotFoundCourtIdException("id: " + id);
         }
     }

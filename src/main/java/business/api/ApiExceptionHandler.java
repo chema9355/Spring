@@ -14,14 +14,17 @@ import business.api.exceptions.InvalidCourtReserveException;
 import business.api.exceptions.InvalidDateException;
 import business.api.exceptions.InvalidUserFieldException;
 import business.api.exceptions.MalformedHeaderException;
+import business.api.exceptions.NotFoundCourtIdException;
+import business.api.exceptions.NotFoundTrainingIdException;
 import business.api.exceptions.UnauthorizedException;
 import business.api.exceptions.NotFoundUserIdException;
+import business.api.exceptions.PlayerNotExistInTrainingException;
 
 @ControllerAdvice
 public class ApiExceptionHandler {
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    @ExceptionHandler({NotFoundUserIdException.class})
+    @ExceptionHandler({NotFoundUserIdException.class, NotFoundTrainingIdException.class, NotFoundCourtIdException.class})
     @ResponseBody
     public ErrorMessage notFoundRequest(ApiException exception) {
         ErrorMessage apiErrorMessage = new ErrorMessage(exception);
@@ -47,6 +50,14 @@ public class ApiExceptionHandler {
     @ExceptionHandler({AlreadyExistUserFieldException.class, AlreadyExistUserFieldException.class, InvalidCourtReserveException.class})
     @ResponseBody
     public ErrorMessage conflictRequest(ApiException exception) {
+        ErrorMessage apiErrorMessage = new ErrorMessage(exception);
+        return apiErrorMessage;
+    }
+    
+    @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
+    @ExceptionHandler({PlayerNotExistInTrainingException.class})
+    @ResponseBody
+    public ErrorMessage notAcceptableRequest(ApiException exception) {
         ErrorMessage apiErrorMessage = new ErrorMessage(exception);
         return apiErrorMessage;
     }

@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import business.api.Results;
 import business.wrapper.Availability;
 import business.wrapper.TrainingAvailability;
 import data.daos.CourtDao;
@@ -58,21 +59,21 @@ public class TrainingController {
     	return new TrainingAvailability(startDate, endDate, trainings);
     }
 
-    public boolean createTraining(int courtId, Calendar startDate, Calendar endDate, String username) {	
+    public String createTraining(int courtId, Calendar startDate, Calendar endDate, String username) {	
     	Court court = courtDao.findOne(courtId);
+    	User trainer = userDao.findByUsernameOrEmail(username);
     	if (court == null)
     	{
-    		return false;
+    		return Results.COURT_NOT_FOUND;
+    	}
+    	else if(trainer == null)
+    	{
+    		return Results.TRAINING_NOT_FOUND;
     	}
     	int numDias = startDate.get(Calendar.DAY_OF_YEAR) - endDate.get(Calendar.DAY_OF_YEAR);
     	int numTrainings = numDias / DAYS_IN_WEEK;
     	Calendar lastClass = (Calendar) startDate.clone();
     	lastClass.add(Calendar.DAY_OF_YEAR, numTrainings * DAYS_IN_WEEK);
-        User trainer = userDao.findByUsernameOrEmail(username);
-        if (trainer == null)
-        {
-        	return false;
-        }
         Training training = new Training(startDate, lastClass, court, trainer);
         for (int i = 0; i<numTrainings; i++)
         {
@@ -82,7 +83,7 @@ public class TrainingController {
         	startDate.add(Calendar.DAY_OF_YEAR, DAYS_IN_WEEK);
         }
         trainingDao.save(training);
-        return true;
+        return Results.OK;
     }
     
     public boolean deleteTraining(int trainingId){
@@ -95,24 +96,24 @@ public class TrainingController {
 	    return true;
     }
     
-    public boolean deleteTrainingPlayer(String playerName, int trainingId){
+    public String deleteTrainingPlayer(String playerName, int trainingId){
     	Training training = trainingDao.findOne(trainingId);
     	User player = userDao.findByUsernameOrEmail(playerName);
-    	if (training == null)
+    	if (training == null )
     	{
-    		return false;
+    		return Results.TRAINING_NOT_FOUND;
     	}
     	else if (player == null)
     	{
-    		return false;
+    		return Results.USER_NOT_FOUND;
     	}
     	else if (!training.getPlayers().contains(player))
     	{
-    		return false;
+    		return Results.PLAYER_NOT_IN_TRAINING;
     	}
     	training.deletePlayer(player);
 	    trainingDao.save(training);
-	    return true;
+	    return Results.OK;
     }
     
     public boolean registerPlayerInTraining(String playerName, int trainingId) {

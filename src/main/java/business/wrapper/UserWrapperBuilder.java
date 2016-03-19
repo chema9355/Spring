@@ -12,7 +12,7 @@ public class UserWrapperBuilder {
     }
 
     public UserWrapperBuilder() {
-        this(0);
+        this(10);
     }
 
     public UserWrapperBuilder username(String username) {

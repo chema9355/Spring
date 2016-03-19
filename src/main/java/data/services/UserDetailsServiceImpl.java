@@ -16,9 +16,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import data.daos.AuthorizationDao;
+import data.daos.TokenDao;
 import data.daos.UserDao;
 import data.entities.Role;
 import data.entities.User;
+import data.entities.Token;
 
 @Service
 @Transactional
@@ -26,13 +28,16 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     private UserDao userDao;
+    
+    @Autowired
+    private TokenDao tokenDao;
 
     @Autowired
     private AuthorizationDao authorizationDao;
 
     @Override
     public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
-        User user = userDao.findByTokenValue(username);
+        User user = userDao.findByValidToken(username);      
         if (user == null) {
             user = userDao.findByUsernameOrEmail(username);
             if (user == null) {
@@ -40,10 +45,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             } else {
                 return this.userBuilder(user.getUsername(), user.getPassword(), Arrays.asList(Role.AUTHENTICATED));
             }
-        } else {
+        } else {     	
             List<Role> roleList = authorizationDao.findRoleByUser(user);
             return this.userBuilder(user.getUsername(), new BCryptPasswordEncoder().encode(""), roleList);
-        }
+        }       	
     }
 
     private org.springframework.security.core.userdetails.User userBuilder(String username, String password, List<Role> roles) {

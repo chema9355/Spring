@@ -1,5 +1,6 @@
 package data.entities;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -22,6 +23,9 @@ public class Token {
     @ManyToOne
     @JoinColumn
     private User user;
+    
+    @Column
+    private Date creation;
 
     public Token() {
     }
@@ -31,8 +35,27 @@ public class Token {
         this.user = user;
         this.value = new Encrypt().encryptInBase64UrlSafe("" + user.getId() + user.getUsername() + Long.toString(new Date().getTime())
                 + user.getPassword());
+        this.creation = Calendar.getInstance().getTime();
+    }
+    
+    public Token(User user, Date creation) {
+        assert user != null;
+        this.user = user;
+        this.value = new Encrypt().encryptInBase64UrlSafe("" + user.getId() + user.getUsername() + Long.toString(new Date().getTime())
+                + user.getPassword());
+        this.creation = creation;
     }
 
+    public boolean isOldToken()
+    { 
+    	Date now = Calendar.getInstance().getTime();
+    	if ((now.getTime() - this.getCreation().getTime())/(60*60*1000) > 1)
+		{
+			return true;
+		}
+    	return false;
+    }
+    
     public int getId() {
         return id;
     }
@@ -43,6 +66,10 @@ public class Token {
 
     public User getUser() {
         return user;
+    }
+    
+    public Date getCreation(){
+    	return creation;
     }
 
     @Override

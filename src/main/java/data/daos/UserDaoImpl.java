@@ -1,10 +1,12 @@
 package data.daos;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import data.entities.Token;
 import data.entities.User;
 
+@Repository
 public class UserDaoImpl implements UserExtended{
 
 	@Autowired 

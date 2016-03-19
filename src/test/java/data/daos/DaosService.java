@@ -56,7 +56,9 @@ public class DaosService {
         for (User user : users) {
             map.put(user.getUsername(), user);
         }
-        this.createOldTokens(users);
+        for (Token token : this.createOldTokens(users)) {
+            map.put("t" + token.getUser().getUsername(), token);
+        }
         
         this.createCourts(1, 4);
         Calendar date = Calendar.getInstance();

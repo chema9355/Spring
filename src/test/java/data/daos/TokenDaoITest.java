@@ -6,8 +6,10 @@ import static org.junit.Assert.assertNull;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -19,6 +21,7 @@ import data.entities.User;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {PersistenceConfig.class, TestsPersistenceConfig.class})
+@FixMethodOrder(MethodSorters.NAME_ASCENDING) 
 public class TokenDaoITest {
 
     @Autowired
@@ -40,6 +43,14 @@ public class TokenDaoITest {
         Token token = (Token) daosService.getMap().get("tu1");
         Token token1 = tokenDao.findByValue(token.getValue());
         assertEquals(token, token1);
+    }
+    
+    @Test
+    public void testAnOldToken() {
+        Token validToken = (Token) daosService.getMap().get("tu1");
+        assertEquals(validToken.isOldToken(), false);
+        Token oldToken = (Token) daosService.getMap().get("tu7");
+        assertEquals(oldToken.isOldToken(), true);
     }
     
     @Test

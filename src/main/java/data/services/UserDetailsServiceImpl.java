@@ -37,7 +37,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
-        User user = userDao.findByTokenValue(username);       
+        User user = userDao.findByValidToken(username);      
         if (user == null) {
             user = userDao.findByUsernameOrEmail(username);
             if (user == null) {
@@ -45,12 +45,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             } else {
                 return this.userBuilder(user.getUsername(), user.getPassword(), Arrays.asList(Role.AUTHENTICATED));
             }
-        } else {
-        	Token token = tokenDao.findByValue(username);
-        	if (token.isOldToken()){
-        		System.out.println("el token esta caducado");
-        		throw new UsernameNotFoundException("el token del usuario esta caducado");
-        	}       	
+        } else {     	
             List<Role> roleList = authorizationDao.findRoleByUser(user);
             return this.userBuilder(user.getUsername(), new BCryptPasswordEncoder().encode(""), roleList);
         }       	

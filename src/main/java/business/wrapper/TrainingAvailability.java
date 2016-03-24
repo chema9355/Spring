@@ -22,7 +22,7 @@ public class TrainingAvailability {
         this.endDate = endDate;
         this.trainings = trainings;
     }
-
+    
     public Calendar getStartDate() {
         return this.startDate;
     }
@@ -39,7 +39,7 @@ public class TrainingAvailability {
         this.endDate = endDate;
     }
 
-    public List<Training> getTrainins() {
+    public List<Training> getTrainings() {
         return this.trainings;
     }
 

@@ -18,6 +18,8 @@ import business.api.exceptions.NotFoundCourtIdException;
 import business.api.exceptions.NotFoundTrainingIdException;
 import business.api.exceptions.UnauthorizedException;
 import business.api.exceptions.NotFoundUserIdException;
+import business.api.exceptions.PlayerAlreadyInTrainingException;
+import business.api.exceptions.PlayerMaximumReachedException;
 import business.api.exceptions.PlayerNotExistInTrainingException;
 
 @ControllerAdvice
@@ -55,7 +57,7 @@ public class ApiExceptionHandler {
     }
     
     @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
-    @ExceptionHandler({PlayerNotExistInTrainingException.class})
+    @ExceptionHandler({PlayerNotExistInTrainingException.class, PlayerMaximumReachedException.class, PlayerAlreadyInTrainingException.class})
     @ResponseBody
     public ErrorMessage notAcceptableRequest(ApiException exception) {
         ErrorMessage apiErrorMessage = new ErrorMessage(exception);

@@ -4,7 +4,7 @@ public class InvalidDateException extends ApiException {
 
     private static final long serialVersionUID = -1344640670884805385L;
 
-    public static final String DESCRIPTION = "Fecha no válida";
+    public static final String DESCRIPTION = "invalid date";
 
     public static final int CODE = 1;
 

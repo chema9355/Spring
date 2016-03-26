@@ -1,6 +1,7 @@
 package data.entities;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -44,6 +45,7 @@ public class Training {
 	        this.court = court;
 	        this.startDate = startDate;
 	        this.endDate = endDate;
+	        this.reserves = new ArrayList<Reserve>();
 	    }
 	    
 	    public Training(Calendar startDate, Calendar endDate, Court court, User trainer) {
@@ -51,6 +53,7 @@ public class Training {
 	        this.startDate = startDate;
 	        this.endDate = endDate;
 	        this.trainer = trainer;
+	        this.reserves = new ArrayList<Reserve>();
 	    }
 	    
 	    public Training(Calendar startDate, Calendar endDate, Court court, User trainer, List<User> players) {
@@ -59,6 +62,7 @@ public class Training {
 	        this.endDate = endDate;
 	        this.trainer = trainer;
 	        this.players = players;
+	        this.reserves = new ArrayList<Reserve>();
 	    }
 	    
 	    public Training() {
@@ -82,6 +86,14 @@ public class Training {
 	    
 	    public List <User> getPlayers() {
 	        return players;
+	    }
+	    
+	    public List <Reserve> getReserves() {
+	        return reserves;
+	    }
+	    
+	    public void setReserves(List <Reserve> reserves) {
+	        this.reserves = reserves;
 	    }
 
 	    public void setTrainer(User trainer) {

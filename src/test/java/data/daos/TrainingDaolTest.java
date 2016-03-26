@@ -2,6 +2,7 @@ package data.daos;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -14,6 +15,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import config.PersistenceConfig;
 import config.TestsPersistenceConfig;
 import data.entities.Court;
+import data.entities.Token;
 import data.entities.Training;
 import data.entities.User;
 
@@ -30,26 +32,23 @@ public class TrainingDaolTest {
 	    @Autowired
 	    private CourtDao courtDao;
 	    
-	    @Autowired
-	    private UserDao userDao;
-	    
 	    @Test
-	    public void testFindByCourt() {
-	        Court c = new Court(1);
-	        assertEquals(1, trainingDao.findByCourt(c).size());
-	    }
-	    
-	    @Test
-	    public void testFindByTrainer() {
-	    User trainer = userDao.findByUsernameOrEmail("u1");
-	    assertEquals(4, trainingDao.findByTrainer(trainer).size());
-	    }
-	    
-	    @Test
-	    public void testFindByTrainerAndCourt() {
-	    User trainer = userDao.findByUsernameOrEmail("u1");
-	    Court c = new Court(1);
-	    assertEquals(1, trainingDao.findByTrainerAndCourt(trainer, c).size());
+	    public void testExistingTraining() {
+	    	Calendar startDate = Calendar.getInstance();
+	    	startDate.set(Calendar.DAY_OF_YEAR, 1);
+	    	Calendar endDate = Calendar.getInstance();
+	    	endDate.set(Calendar.DAY_OF_YEAR, 80);
+	        List<Training> trainings = trainingDao.getExistingTrainings(startDate, endDate);
+	        assertEquals(1, trainings.size());
+	        startDate.set(Calendar.DAY_OF_YEAR, 32);
+	    	endDate.set(Calendar.DAY_OF_YEAR, 50);
+	    	trainings = trainingDao.getExistingTrainings(startDate, endDate);
+	    	assertEquals(0, trainings.size());
+	    	startDate.set(Calendar.DAY_OF_YEAR, 1);
+	    	endDate.set(Calendar.DAY_OF_YEAR, 100);
+	    	trainings = trainingDao.getExistingTrainings(startDate, endDate);
+	    	assertEquals(2, trainings.size());
+	    	daosService.deleteAll();
 	    }
 
 

@@ -62,9 +62,11 @@ public class DaosService {
         }
         for (Token token : this.createOldTokens(users)) {
             map.put("t" + token.getUser().getUsername(), token);
-        }
-        
+        }       
+            
         this.createCourts(1, 4);
+        this.createTrainings();
+        
         Calendar date = Calendar.getInstance();
         date.add(Calendar.DAY_OF_YEAR, 1);
         date.set(Calendar.HOUR_OF_DAY, 9);
@@ -75,16 +77,25 @@ public class DaosService {
         for (int i = 0; i < 4; i++) {
             date.add(Calendar.HOUR_OF_DAY, 1);
             reserveDao.save(new Reserve(courtDao.findOne(i+1), users[i], date));
-          //  trainingDao.save(new Training(date, courtDao.findOne(i+1), users[1]));
         } 
     }
 
     public User[] createPlayers(int initial, int size) {
         User[] users = new User[size];
         for (int i = 0; i < size; i++) {
-            users[i] = new User("u" + (i + initial), "u" + (i + initial) + "@gmail.com", "p", Calendar.getInstance());
+            users[i] = new User("u" + (i + initial), "u" + (i + initial) + "@gmail.com", "1234", Calendar.getInstance());
             userDao.save(users[i]);
             authorizationDao.save(new Authorization(users[i], Role.PLAYER));
+        }
+        return users;
+    }
+    
+    public User[] createTrainers(int initial, int size) {
+        User[] users = new User[size];
+        for (int i = 0; i < size; i++) {
+            users[i] = new User("tr" + (i + initial), "tr" + (i + initial) + "@gmail.com", "1234", Calendar.getInstance());
+            userDao.save(users[i]);
+            authorizationDao.save(new Authorization(users[i], Role.TRAINER));
         }
         return users;
     }
@@ -117,6 +128,20 @@ public class DaosService {
         for (int id = 0; id < size; id++) {
             courtDao.save(new Court(id + initial));
         }
+    }
+    
+    public void createTrainings() {
+    	User[] trainers = createTrainers(0,2); 
+    	Calendar startDate = Calendar.getInstance();
+    	startDate.set(Calendar.DAY_OF_YEAR, 2);
+    	Calendar endDate = Calendar.getInstance();
+    	endDate.set(Calendar.DAY_OF_YEAR, 90);
+    	Training training1 = new Training(startDate, endDate, courtDao.findOne(1), trainers[0]);
+    	trainingDao.save(training1);
+    	startDate.set(Calendar.DAY_OF_YEAR, 30);
+    	endDate.set(Calendar.DAY_OF_YEAR,60);
+    	Training training2 = new Training(startDate, endDate, courtDao.findOne(2), trainers[1]);
+    	trainingDao.save(training2);  	  	
     }
 
     public Map<String, Object> getMap() {

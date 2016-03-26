@@ -69,8 +69,8 @@ public class TrainingController {
     	{
     		return Results.TRAINER_NOT_FOUND;
     	}
-    	int numDias = trainingAvailableTime.getStartDate().get(Calendar.DAY_OF_YEAR) - 
-    					trainingAvailableTime.getEndDate().get(Calendar.DAY_OF_YEAR);
+    	int numDias = trainingAvailableTime.getEndDate().get(Calendar.DAY_OF_YEAR) - 
+    					trainingAvailableTime.getStartDate().get(Calendar.DAY_OF_YEAR);
     	int numTrainings = numDias / DAYS_IN_WEEK;   	
     	Calendar nextClass = (Calendar) trainingAvailableTime.getStartDate().clone();
     	Calendar lastClass = (Calendar) trainingAvailableTime.getStartDate().clone();
@@ -98,7 +98,7 @@ public class TrainingController {
     	{
     		return Results.TRAINING_NOT_FOUND;
     	}
-	    trainingDao.delete(training);
+    	trainingDao.delete(training);    
 	    return Results.OK;
     }
     
@@ -107,7 +107,7 @@ public class TrainingController {
     	User player = userDao.findByUsernameOrEmail(playerName);
     	if (training == null )
     	{
-    		return Results.TRAINER_NOT_FOUND;
+    		return Results.TRAINING_NOT_FOUND;
     	}
     	else if (player == null)
     	{

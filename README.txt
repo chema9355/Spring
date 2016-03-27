@@ -11,7 +11,7 @@ con seguridad en la configuracion. Se ha añadido tampien en el paquete "API"
 los recursos que ofrecen los entrenamientos
 Se han realizado los tests de las mejoras
 
-WEB
+WEB(A)
 Se han realizado con JSP la capa web de 
 -lista de usuarios
 -creacion de usuarios

@@ -2,41 +2,41 @@ package business.api.exceptions;
 
 public class ErrorMessage {
 
-    private String error;
+	private String error;
 
-    private String description;
+	private String description;
 
-    private String url;
+	private String url;
 
-    public ErrorMessage(ApiException exception) {
-        this(exception.getClass().getSimpleName(), exception.getMessage(), exception.getUrl());
-    }
-    
-    public ErrorMessage(Exception exception) {
-        this(exception.getClass().getSimpleName(), exception.getMessage(),"");
-    }
+	public ErrorMessage(ApiException exception) {
+		this(exception.getClass().getSimpleName(), exception.getMessage(), exception.getUrl());
+	}
 
-    public ErrorMessage(String error, String description, String url) {
-        this.error = error;
-        this.description = description;
-        this.url = url;
-    }
+	public ErrorMessage(Exception exception) {
+		this(exception.getClass().getSimpleName(), exception.getMessage(), "");
+	}
 
-    public String getError() {
-        return error;
-    }
+	public ErrorMessage(String error, String description, String url) {
+		this.error = error;
+		this.description = description;
+		this.url = url;
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	public String getError() {
+		return error;
+	}
 
-    public String getUrl() {
-        return url;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    @Override
-    public String toString() {
-        return "ApiErrorMessage [error=" + error + ", description=" + description + ", url=" + url + "]";
-    }
+	public String getUrl() {
+		return url;
+	}
+
+	@Override
+	public String toString() {
+		return "ApiErrorMessage [error=" + error + ", description=" + description + ", url=" + url + "]";
+	}
 
 }

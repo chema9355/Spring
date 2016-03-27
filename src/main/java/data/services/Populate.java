@@ -22,36 +22,36 @@ import data.entities.User;
 @PropertySource(ResourceNames.PROPERTIES)
 public class Populate {
 
-    private String adminUsername;
+	private String adminUsername;
 
-    private String adminEmail;
+	private String adminEmail;
 
-    private String adminPassword;
+	private String adminPassword;
 
-    @Autowired
-    private Environment environment;
+	@Autowired
+	private Environment environment;
 
-    @Autowired
-    private UserDao userDao;
+	@Autowired
+	private UserDao userDao;
 
-    @Autowired
-    private AuthorizationDao authorizationDao;
+	@Autowired
+	private AuthorizationDao authorizationDao;
 
-    @PostConstruct
-    public void readAdmin() {
-        adminUsername = environment.getProperty("admin.username");
-        adminEmail = environment.getProperty("admin.email");
-        adminPassword = environment.getProperty("admin.password");
-        createDefaultAdmin();
-    }
+	@PostConstruct
+	public void readAdmin() {
+		adminUsername = environment.getProperty("admin.username");
+		adminEmail = environment.getProperty("admin.email");
+		adminPassword = environment.getProperty("admin.password");
+		createDefaultAdmin();
+	}
 
-    public void createDefaultAdmin() {
-        User adminSaved = userDao.findByUsernameOrEmail(adminUsername);
-        if (adminSaved == null) {
-            User admin = new User(adminUsername, adminEmail, adminPassword, new GregorianCalendar(1979, 07, 22));
-            userDao.save(admin);
-            authorizationDao.save(new Authorization(admin, Role.ADMIN));
-        }
-    }
+	public void createDefaultAdmin() {
+		User adminSaved = userDao.findByUsernameOrEmail(adminUsername);
+		if (adminSaved == null) {
+			User admin = new User(adminUsername, adminEmail, adminPassword, new GregorianCalendar(1979, 07, 22));
+			userDao.save(admin);
+			authorizationDao.save(new Authorization(admin, Role.ADMIN));
+		}
+	}
 
 }

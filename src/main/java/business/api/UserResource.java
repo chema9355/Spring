@@ -15,27 +15,28 @@ import business.wrapper.UserWrapper;
 @RequestMapping(Uris.SERVLET_MAP + Uris.USERS)
 public class UserResource {
 
-    private UserController userController;
+	private UserController userController;
 
-    @Autowired
-    public void setUserController(UserController userController) {
-        this.userController = userController;
-    }
+	@Autowired
+	public void setUserController(UserController userController) {
+		this.userController = userController;
+	}
 
-    @RequestMapping(method = RequestMethod.POST)
-    public void registration(@RequestBody UserWrapper userWrapper) throws InvalidUserFieldException, AlreadyExistUserFieldException {
-        validateField(userWrapper.getUsername(), "username");
-        validateField(userWrapper.getEmail(), "email");
-        validateField(userWrapper.getPassword(), "password");
-        if (!this.userController.registration(userWrapper)) {
-            throw new AlreadyExistUserFieldException();
-        }
-    }
+	@RequestMapping(method = RequestMethod.POST)
+	public void registration(@RequestBody UserWrapper userWrapper)
+			throws InvalidUserFieldException, AlreadyExistUserFieldException {
+		validateField(userWrapper.getUsername(), "username");
+		validateField(userWrapper.getEmail(), "email");
+		validateField(userWrapper.getPassword(), "password");
+		if (!this.userController.registration(userWrapper)) {
+			throw new AlreadyExistUserFieldException();
+		}
+	}
 
-    private void validateField(String field, String msg) throws InvalidUserFieldException {
-        if (field == null || field.isEmpty()) {
-            throw new InvalidUserFieldException(msg);
-        }
-    }
+	private void validateField(String field, String msg) throws InvalidUserFieldException {
+		if (field == null || field.isEmpty()) {
+			throw new InvalidUserFieldException(msg);
+		}
+	}
 
 }

@@ -8,5 +8,5 @@ import data.entities.Training;
 public interface TrainingExtended {
 
 	List<Training> getExistingTrainings(Calendar StartDate, Calendar endDate);
-	
+
 }

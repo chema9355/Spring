@@ -2,18 +2,18 @@ package business.api.exceptions;
 
 public class InvalidDateException extends ApiException {
 
-    private static final long serialVersionUID = -1344640670884805385L;
+	private static final long serialVersionUID = -1344640670884805385L;
 
-    public static final String DESCRIPTION = "invalid date";
+	public static final String DESCRIPTION = "invalid date";
 
-    public static final int CODE = 1;
+	public static final int CODE = 1;
 
-    public InvalidDateException() {
-        this("");
-    }
+	public InvalidDateException() {
+		this("");
+	}
 
-    public InvalidDateException(String detail) {
-        super(DESCRIPTION + ". " + detail, CODE);
-    }
+	public InvalidDateException(String detail) {
+		super(DESCRIPTION + ". " + detail, CODE);
+	}
 
 }

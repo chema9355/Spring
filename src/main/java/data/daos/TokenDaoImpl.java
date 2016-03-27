@@ -7,17 +7,17 @@ import data.entities.Token;
 
 @Repository
 public class TokenDaoImpl implements TokenExtended {
-	
-	@Autowired 
+
+	@Autowired
 	private TokenDao tokenDao;
 
 	@Override
 	public void deleteOldTokens() {
 		List<Token> tokens = tokenDao.findAll();
-		for (Token token : tokens)	{
-			if (token.isOldToken())	{
+		for (Token token : tokens) {
+			if (token.isOldToken()) {
 				tokenDao.delete(token);
-			}			
+			}
 		}
 		tokenDao.flush();
 	}

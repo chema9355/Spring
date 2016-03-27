@@ -11,16 +11,16 @@ import business.controllers.AdminController;
 @RequestMapping(Uris.SERVLET_MAP + Uris.ADMINS)
 public class AdminsResource {
 
-    private AdminController adminController;
-    
-    @Autowired
-    public void setAdminController(AdminController adminController) {
-        this.adminController = adminController;
-    }
+	private AdminController adminController;
 
-    @RequestMapping(method = RequestMethod.DELETE)
-    public void deleteAllExceptAdmin() {
-        adminController.deleteAllExceptAdmin();
-    }
+	@Autowired
+	public void setAdminController(AdminController adminController) {
+		this.adminController = adminController;
+	}
+
+	@RequestMapping(method = RequestMethod.DELETE)
+	public void deleteAllExceptAdmin() {
+		adminController.deleteAllExceptAdmin();
+	}
 
 }

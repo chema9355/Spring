@@ -8,51 +8,52 @@ import data.entities.Training;
 
 public class TrainingAvailability {
 
-    private Calendar startDate;
-    
-    private Calendar endDate;
-    
-    private List<Training> trainings;
+	private Calendar startDate;
 
-    public TrainingAvailability() {
-    }
+	private Calendar endDate;
 
-    public TrainingAvailability(Calendar startDate, Calendar endDate, List<Training> trainings) {
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.trainings = trainings;
-    }
-    
-    public Calendar getStartDate() {
-        return this.startDate;
-    }
+	private List<Training> trainings;
 
-    public void setStartDate(Calendar startDate) {
-        this.startDate = startDate;
-    }
-    
-    public Calendar getEndDate() {
-        return this.endDate;
-    }
-    
-    public void setEndDate(Calendar endDate) {
-        this.endDate = endDate;
-    }
+	public TrainingAvailability() {
+	}
 
-    public List<Training> getTrainings() {
-        return this.trainings;
-    }
+	public TrainingAvailability(Calendar startDate, Calendar endDate, List<Training> trainings) {
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.trainings = trainings;
+	}
 
-    public void setTrainings(List<Training> trainings) {
-        this.trainings = trainings;
-    }
+	public Calendar getStartDate() {
+		return this.startDate;
+	}
 
-    @Override
-    public String toString() {
-        String startDate = new SimpleDateFormat("dd-MMM-yyyy HH:mm").format(this.startDate.getTime());
-        String endDate = new SimpleDateFormat("dd-MMM-yyyy HH:mm").format(this.endDate.getTime());
+	public void setStartDate(Calendar startDate) {
+		this.startDate = startDate;
+	}
 
-        return "Training Availability [StartDate=" + startDate + ", EndDate=" + endDate + ",trainings=" + this.trainings + "]";
-    }
+	public Calendar getEndDate() {
+		return this.endDate;
+	}
+
+	public void setEndDate(Calendar endDate) {
+		this.endDate = endDate;
+	}
+
+	public List<Training> getTrainings() {
+		return this.trainings;
+	}
+
+	public void setTrainings(List<Training> trainings) {
+		this.trainings = trainings;
+	}
+
+	@Override
+	public String toString() {
+		String startDate = new SimpleDateFormat("dd-MMM-yyyy HH:mm").format(this.startDate.getTime());
+		String endDate = new SimpleDateFormat("dd-MMM-yyyy HH:mm").format(this.endDate.getTime());
+
+		return "Training Availability [StartDate=" + startDate + ", EndDate=" + endDate + ",trainings=" + this.trainings
+				+ "]";
+	}
 
 }

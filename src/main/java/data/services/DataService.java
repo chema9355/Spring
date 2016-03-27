@@ -12,37 +12,36 @@ import data.daos.UserDao;
 
 @Service
 public class DataService {
-    
-    @Autowired
-    private Populate populate;
 
-    @Autowired
-    private ReserveDao reserveDao;
-    
-    @Autowired
-    private TrainingDao trainingDao;
-    
-    @Autowired
-    private AuthorizationDao authorizationDao;
-    
-    @Autowired
-    private TokenDao tokenDao;
-    
-    @Autowired
-    private CourtDao courtDao;
-    
-    @Autowired
-    private UserDao userDao;
-    
+	@Autowired
+	private Populate populate;
 
-    public void deleteAllExceptAdmin(){
-    	trainingDao.deleteAll();
-        reserveDao.deleteAll();
-        authorizationDao.deleteAll();
-        tokenDao.deleteAll();
-        courtDao.deleteAll();
-        userDao.deleteAll();
-        populate.createDefaultAdmin();
-    }
+	@Autowired
+	private ReserveDao reserveDao;
+
+	@Autowired
+	private TrainingDao trainingDao;
+
+	@Autowired
+	private AuthorizationDao authorizationDao;
+
+	@Autowired
+	private TokenDao tokenDao;
+
+	@Autowired
+	private CourtDao courtDao;
+
+	@Autowired
+	private UserDao userDao;
+
+	public void deleteAllExceptAdmin() {
+		trainingDao.deleteAll();
+		reserveDao.deleteAll();
+		authorizationDao.deleteAll();
+		tokenDao.deleteAll();
+		courtDao.deleteAll();
+		userDao.deleteAll();
+		populate.createDefaultAdmin();
+	}
 
 }

@@ -9,7 +9,8 @@ En la validacion de tokens se incluye la mejora de caducidad.
 Se ha realizado el controlador con las distintas funciones de los entrenamientos 
 con seguridad en la configuracion. Se ha añadido tampien en el paquete "API"
 los recursos que ofrecen los entrenamientos
-Se han realizado los tests de las mejoras
+Se han realizado los tests de las mejoras. Los de la api son a nivel de controlador
+en test/controller.
 
 WEB(A)
 Se han realizado con JSP la capa web de 
